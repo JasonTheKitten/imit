@@ -1,0 +1,53 @@
+#menubar {
+    color: white;
+    font-size: 14px;
+    background-color: var(--menubar-background-color);
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: var(--border-side-padding);
+    padding-right: var(--border-side-padding);
+}
+
+.mb-label, .mb-file {
+    display: inline-block;
+    padding-top: var(--element-vertical-padding);
+    padding-bottom: var(--element-vertical-padding);
+    padding-left: var(--element-side-padding);
+    padding-right: var(--element-side-padding);
+    cursor: pointer;
+}
+.mb-label:hover, .mb-file:hover {
+    background-color: var(--menubar-item-background-color-hover);
+}
+.mb-label:active, .mb-file:active {
+    background-color: var(--menubar-item-background-color-clicked);
+}
+.mb-file.selected {
+    background-color: var(--menubar-item-background-color-selected);
+}
+
+.mb-menu {
+    position: fixed;
+    background-color: var(--menubar-menu-background-color);
+    color: white;
+    box-sizing: border-box;
+    font-size: 13px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.mb-menu > .menu-item {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.mb-menu > .menu-item:hover {
+    background-color: var(--menubar-menu-item-color-hover);
+}
+.mb-menu > .menu-item:active {
+    background-color: var(--menubar-menu-item-color-selected);
+}
+#menubar-menus, #menubar-files {
+    display: inline-block;
+}
+#menubar-files {
+    float: right;
+}

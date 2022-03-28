@@ -1,0 +1,17 @@
+{
+    "i18n.language": "Language",
+    "i18n.name": "English",
+    "i18n.letters": "en_US",
+    "footer.zoom": "Zoom",
+    "menubar.menus.file": "File",
+    "menubar.menus.file.open": "Open",
+    "menubar.menus.file.copyto": "Copy To",
+    "menubar.menus.file.saveas": "Save As",
+    "menubar.menus.file.save": "Save",
+    "menubar.menus.file.new": "New",
+    "menubar.menus.learn": "Learn",
+    "menubar.menus.learn.manual": "Imit Help",
+    "menubar.menus.learn.drawabox": "DrawABox",
+    "menubar.files.untitled": "Untitled",
+    "window.title": "Imit - Digital Painting Online"
+}

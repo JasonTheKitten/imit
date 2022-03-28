@@ -1,0 +1,54 @@
+.dock-container {
+    display: grid;
+    transition: 2s;
+}
+
+.dock {
+    display: flex;
+    flex-direction: column;
+    border: .1px solid #FFFFFF33;
+}
+
+.dockfill {
+    display: none;
+    background-color: blue;
+}
+
+.dock-decorations {
+    color: white;
+    background-color: var(--dock-controls-color);
+    height: 20px;
+    box-sizing: border-box;
+    border: 1px solid var(--dock-controls-border-color);
+    padding-left: var(--border-side-padding);
+    padding-right: var(--border-side-padding);
+    cursor: pointer;
+}
+.dock-grip {
+    display: inline-block;
+    background: radial-gradient(circle at center, white 20%, transparent 22%), var(--dock-controls-color);
+    background-size: 6px 6px;
+    height: 100%;
+    width: 40px;
+}
+.dock-controls {
+    height: 100%;
+    float: right;
+    font-size: 0;
+}
+.dock-controls-button {
+    font-size: 12px;
+    display: inline-block;
+    height: 100%;
+    padding-left: var(--element-side-padding);
+    padding-right: var(--element-side-padding);
+}
+.dock-controls-button:hover {
+    background-color: var(--dock-controls-button-hover-color);
+}
+.dock-controls-button:active {
+    background-color: var(--dock-controls-button-select-color);
+}
+.dock-content {
+    flex-grow: 1;
+}

@@ -1,0 +1,25 @@
+#footerbar {
+    color: white;
+    font-size: 14px;
+    background-color: var(--footerbar-background-color);
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: var(--border-side-padding);
+    padding-right: var(--border-side-padding);
+}
+#footerbar-info {
+    float: right;
+}
+
+.language-menu {
+    position: fixed;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 8px;
+}
+.language-menu > .menu-item:hover {
+    background-color: var(--language-menu-item-color-hover);
+}
+.language-menu > .menu-item:active {
+    background-color: var(--language-menu-item-color-selected);
+}

@@ -1,1 +1,2 @@
-# kraio
+# Imit
+Make digital art, online

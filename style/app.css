@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+@import url('menubar.css');
+@import url('footerbar.css');
+@import url('dock.css');
+@import url('colorpicker.css');
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+#app {
+    font-family: "Open Sans";
+    font-weight: lighter;
+    background-color: var(--primary-background-color);
+    user-select: none;
+}
+
+.view {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.view.selected {
+    display: block;
+}
+
+#editor-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    cursor: pointer;
+}
+
+#content-area {
+    flex-grow: 1;
+}
+
+#app {
+    --primary-background-color: #666666;
+    --menubar-background-color: #121212;
+    --menubar-item-background-color-hover: #363636;
+    --menubar-item-background-color-clicked: #484848;
+    --menubar-item-background-color-selected: #5A5A5A;
+    --menubar-menu-background-color: #333333;
+    --menubar-menu-item-color-hover: #555555;
+    --menubar-menu-item-color-selected: #777777;
+    --footerbar-background-color: #222222;
+    --language-menu-item-color-hover: #EEEEEE;
+    --language-menu-item-color-selected: #BBBBBB;
+    --dock-controls-color: #0373fc;
+    --dock-controls-border-color: #0d79fd;
+    --dock-controls-button-hover-color: #3f95fd;
+    --dock-controls-button-select-color: #014392;
+
+    --border-side-padding: 6px;
+    --element-side-padding: 4px;
+    --element-vertical-padding: 2px;
+}
