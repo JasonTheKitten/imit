@@ -1,0 +1,10 @@
+{
+    "handlerPaths": {
+        "js": "scripts",
+        "css": "styles",
+        "plugin": "../../plugins"
+    },
+    "inheritLinks": [
+        "resources"
+    ]
+}

@@ -5,6 +5,8 @@ define([], function() {
         DOWN_RIGHT = 4
 
     //TODO: Shorten param list
+    //TODO: Break this function up
+    //TODO: Support tabnav
     function createMenu(parent, options, cls, direction, transform) {
         transform = transform || (t => t);
 

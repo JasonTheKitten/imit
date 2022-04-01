@@ -1,17 +1,18 @@
-{
-    requirejs.config({
-        baseUrl: "scripts",
-        paths: {
-            resources: "../resources"
-        }
-    });
+define([
+    "loader",
+    "appctx",
+    "plugin!editorview"
+], function(loader, appCtx, editorView) {
+    return {exec: function() {
+        let appctx = new appCtx.AppCtx();
 
-    requirejs(
-        ["gui/i18n", "gui/menubar", "gui/tabnav", "gui/contentpane"]
-    , function(i18n, menubar, tabnav, contentpane) {
-        i18n.setup();
-        menubar.setup();
-        tabnav.setup();
-        contentpane.setup();
-    });
-}
+        loader.register({
+            plugin: new editorView.EditorView(),
+            dir: "plugins/editorview/"
+        });
+
+        loader.load(appctx).then(() => {
+            appctx.setActiveView("editor");
+        });
+    }};
+});

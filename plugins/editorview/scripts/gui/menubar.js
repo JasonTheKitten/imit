@@ -1,7 +1,10 @@
-define(["gui/menu", "i18n/localize"], function(menuCreator, localize) {
-    let menubarMenusElement = document.getElementById("menubar-menus");
-
+define([
+    "gui/menu",
+    "i18n/localize"
+], function(menuCreator, localize) {
     function createMenuButton(label, options) {
+        let menubarMenusElement = document.getElementById("menubar-menus");
+
         let menuButton = document.createElement("div");
         menuButton.classList = "mb-label localized";
         localize(menuButton, label);

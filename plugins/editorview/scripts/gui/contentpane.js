@@ -1,4 +1,6 @@
-define(["gui/dock"], function(dock) {
+define([
+    "gui/dock"
+], function(dock) {
     function configureDocking() {
         let layout = {
             columnWidths: [256, -1],

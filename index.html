@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
     <head>
-        <title class="localized" label="window.title"></title>
+        <title class="localized" label="window.title">Loading...</title>
 
-        <link rel="stylesheet" href="style/app.css"/>
+        <link rel="stylesheet" href="styles/app.css"/>
 
-        <script src="scripts/lib/require.js"></script>
-        <script src="scripts/main.js"></script>
+        <script src="scripts/include.js"></script>
+        <script src="scripts/bootstrap.js"></script>
     </head>
     <body id="app">
         <noscript>
@@ -17,57 +17,22 @@
                 }
             </style>
         </noscript>
-        <div id="editor-view" class="view selected">
-            <div id="menubar">
-                <div id="menubar-menus"></div>
-                <div id="menubar-files">
-                    <div class="mb-file selected tabnav">
-                        <span class="localized" label="menubar.files.untitled"></span>*
-                    </div>
-                </div>
-            </div>
-            <div id="content-area" class="dock-container">
-                <div class="dockfill" dock-id="-1">
-
-                </div>
-                <div class="dock" dock-id="0">
-                    <div class="dock-content file-switch">
-                        <div class="color-picker">
-                            <div class="color-mode-chooser">
-                                
+        <div id="views">
+            <div class="view selected" name="loading">
+                <div id="loading-view">
+                    <div id="loading-view-splash">
+                        <div id="loading-view-header">
+                            <div id="loading-view-title">
+                                Imit
                             </div>
-                            <div class="current-colors">
-                                <div class="color-option tabnav" style="--color-choice: #FFFFFF"></div>
-                                <div class="color-option tabnav" style="--color-choice: #000000"></div>
-                            </div>
-                            <div class="recent-colors">
-                                <div class="color-option tabnav" style="--color-choice: #888888"></div>
-                            </div>
-                            <div class="color-quick-picker">
-                                <div class="color-option tabnav" style="--color-choice: #FF0000"></div>
-                                <div class="color-option tabnav" style="--color-choice: #00FF00"></div>
-                                <div class="color-option tabnav" style="--color-choice: #0000FF"></div>
-                                <div class="color-option tabnav" style="--color-choice: #00FFFF"></div>
-                                <div class="color-option tabnav" style="--color-choice: #FF00FF"></div>
-                                <div class="color-option tabnav" style="--color-choice: #FFFF00"></div>
+                            Digital Painting Online
+                        </div>
+                        <div id="loading-view-splash-loading-bar-outer">
+                            <div id="loading-view-splash-loading-bar-inner"></div>
+                            <div id="loading-view-splash-loading-bar-text">
+                                Loading...
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="dock" dock-id="1">
-                    <div class="dock-content">
-                        
-                    </div>
-                </div>  
-            </div>
-            <div id="footerbar">
-                Imit v0.1.0
-                <div id="footerbar-info">
-                    <span class="localized" label="footer.zoom"></span>: 100% |
-                    <div id="language-menu-button" class="mb-label tabnav">
-                        <span class="localized" label="i18n.language"></span>:
-                        <span class="localized" label="i18n.name"></span>
-                        (<span class="localized" label="i18n.letters"></span>)
                     </div>
                 </div>
             </div>
