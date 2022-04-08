@@ -1,3 +1,5 @@
+"use strict";
+
 // I had different needs than require.js, to my knowledge, provides, so I rolled my own alternative.
 
 // The `this` keyword doesn't seem to work consistently in JS (unless working with the `class` syntax), so I avoided it here
@@ -9,40 +11,32 @@ function include_(modules, context) {
     // First, calculate how many modules are not already loading/loaded so that we can report them
     // Then, load all modules and return them
 
+    // Fix context if malformatted
+    context.moduleCache ||= {};
+
     if (!(modules instanceof Array)) {
         throw "Expected array of includes!";
     }
 
     //TODO: Perform calculations
 
-    let promises = [];
-    let results = [];
-    for (let i = 0; i < modules.length; i++) {
-        let j = i;
-        promises[j] = include_.include__(modules[j], context)
-            .then(result => results[j] = result);
-    }
-
-    return Promise.all(promises)
-        .then(_ => results);
+    // Thanks to Jude from the (unofficial) Java Discord Server for shortening this!
+    return Promise.all(modules.map(module => include_.include__(module, context)));
 }
 
-include_.moduleCache = {};
 include_.handlers = {};
 include_.defaultHandler = "js";
 include_.moduleLoadingHandler = () => {};
 include_.moduleLoadedHandler = () => {};
 
 include_.include__ = function(module, context) {
+    if (context.moduleOverrides && context.moduleOverrides[module]) {
+        return context.moduleOverrides[module];
+    }
+
     let moduleLookupInfo = include_.resolveModuleLookupInfo(module, context);
 
-    // Commented out block below might be handy for a "strict mode" in the future
-    /*if (!moduleLookupInfo) {
-        return Promise.reject();
-    }*/
-
-    //TODO: Should different `context`s have their own cache? Or should it remain shared?
-    let cachedModule = include_.getModuleCache(moduleLookupInfo);
+    let cachedModule = include_.getModuleCache(moduleLookupInfo, context);
     if (cachedModule) {
         return cachedModule;
     }
@@ -57,7 +51,13 @@ include_.resolveModuleLookupInfo = function(module, context) {
     // with symbolic links and path format correction
     // and even a different base path depending on the handler
     let modulePath = (context.handlerPaths || {})[handlerName] || "";
-    let resolvedLocation = context.path + "/" + modulePath + "/" + moduleName;
+    let resolvedLocation = moduleName;
+    if (modulePath) {
+        resolvedLocation = modulePath + "/" + resolvedLocation;
+    }
+    if (context.path) {
+        resolvedLocation = context.path + "/" + resolvedLocation;
+    }
 
     return {
         handler: include_.handlers[handlerName],
@@ -77,20 +77,20 @@ include_.getModuleHandler = function(module) {
     return [include_.defaultHandler, module, include_.defaultHandler + "!" + module];
 }
 
-include_.getModuleCache = function(moduleLookupInfo) {
-    let cache = include_.moduleCache[moduleLookupInfo.location];
-    if (!cache) {
+include_.getModuleCache = function(moduleLookupInfo, context) {
+    let cache = context.moduleCache[moduleLookupInfo.location];
+    if (cache == null) {
         return null;
     } if (cache instanceof Promise) {
         return cache;
     } else {
-        return Promise.resolve(cache.results);
+        return Promise.resolve(cache);
     }
 }
 
 include_.loadModule = function(moduleLookupInfo, context) {
     include_.moduleLoadingHandler(moduleLookupInfo.name);
-    include_.moduleCache[moduleLookupInfo.location] =
+    context.moduleCache[moduleLookupInfo.location] =
         moduleLookupInfo.handler(moduleLookupInfo.location, context, moduleLookupInfo)
             // JS is designed to appear mostly single-threaded, so this should *not* cause
             // a race condition between the execution of the `=` in .then and the `=` above.
@@ -99,13 +99,13 @@ include_.loadModule = function(moduleLookupInfo, context) {
             // (just in one case it would be wrapped in a promise now and in the other case it
             // would be wrapped in a promise in `getModuleCache`)
             .then(result => {
-                include_.moduleCache[moduleLookupInfo.location] = result;
+                context.moduleCache[moduleLookupInfo.location] = result;
                 include_.moduleLoadedHandler(moduleLookupInfo.name);
 
                 return result;
             });
 
-    return include_.moduleCache[moduleLookupInfo.location];
+    return context.moduleCache[moduleLookupInfo.location];
 }
 
 include_.registerHandler = function(prefix, handler) {
@@ -137,6 +137,15 @@ include_.checkFetchStatus = response => {
 //TODO: Don't hard code file extensions
 include_.registerHandler("js", function(location, context, moduleLookupInfo) {
     return new Promise((resolve, reject) => {
+        function checkCode(code) {
+            //TODO: Ignore whitespace
+            let isStrict = code.startsWith("\"use strict\";") || code.startsWith("'use strict';");
+            let isAsm = code.startsWith("\"use asm\";") || code.startsWith("'use asm';");
+            if (!isStrict || isAsm) {
+                console.warn("Module " + moduleLookupInfo.name + " is not using strict mode.")
+            }
+        }
+
         function include(modules) {
             return include_(modules, context);
         }
@@ -171,6 +180,7 @@ include_.registerHandler("js", function(location, context, moduleLookupInfo) {
         fetch(location + ".js")
             .then(include_.checkFetchStatus)
             .then(response => response.text())
+            .then(code => { checkCode(code); return code; })
             .then(code => (new Function(
                 "include", "define", "defineflat",
                 code + "//# sourceURL=" + moduleLookupInfo.name)(include, define, defineflat)))

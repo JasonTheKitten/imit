@@ -1,20 +1,4 @@
-{
-    function adjustContext(newContext, oldContext) {
-        newContext.path = newContext.path || oldContext.path;
-        return newContext;
-    }
-    
-    include_.registerHandler("plugin", function(location, context_) {
-        let initContext = {
-            path: location
-        }
-        return include_(["json!manifest"], initContext)
-            .then(([context]) => adjustContext(context, initContext))
-            .then(context => include_(["../index"], context)) //TODO: Allow use of base URL
-            .then(([handle]) => handle);
-        //TODO
-    });
-}
+"use strict";
 
 
 window.addEventListener("load", function() {
@@ -53,8 +37,12 @@ window.addEventListener("load", function() {
         updateSplashScreen();
     });
 
-    include_(["main"], context)
-        .then(([main]) => {
-            main.exec();
+    include_(["js!main", "js!plugin"], context)
+        .then(([main, plugin]) => {
+            return main.createAppContext()
+                .then(appctx => {
+                    plugin.registerPluginHandler(appctx);
+                    main.exec(appctx);
+                });
         });
 });

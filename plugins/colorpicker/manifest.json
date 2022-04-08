@@ -2,6 +2,5 @@
     "handlerPaths": {
         "js": "scripts",
         "css": "styles"
-    },
-    "languages": "resources/languages"
+    }
 }

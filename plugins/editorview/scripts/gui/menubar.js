@@ -1,16 +1,20 @@
+"use strict";
+
 define([
+    "$$",
     "gui/menu",
-    "i18n/localize"
-], function(menuCreator, localize) {
+], function(pluginctx, menuCreator) {
+    let languageProvider = pluginctx.getLanguageProvider();
+
     function createMenuButton(label, options) {
         let menubarMenusElement = document.getElementById("menubar-menus");
 
         let menuButton = document.createElement("div");
         menuButton.classList = "mb-label localized";
-        localize(menuButton, label);
+        menuButton.innerText = languageProvider.translate(label);
 
         menuButton.addEventListener("click",
-            _ => menuCreator.createMenu(menuButton, options, "mb-menu", menuCreator.DOWN_RIGHT, localize));
+            _ => menuCreator.createMenu(menuButton, options, "mb-menu", menuCreator.DOWN_RIGHT, l => languageProvider.translate(l)));
         
         menubarMenusElement.append(menuButton);
     }

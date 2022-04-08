@@ -1,3 +1,5 @@
+"use strict";
+
 define([
     "gui/dock"
 ], function(dock) {
@@ -9,14 +11,14 @@ define([
                 [0, 1]
             ],
             floating: {}
-        }
+        };
 
         let contentPane = document.getElementById("content-area");
         new dock.Dock(contentPane, layout);
     }
 
     function setup() {
-        configureDocking()
+        configureDocking();
     }
 
     return { setup: setup };

@@ -1,3 +1,5 @@
+"use strict";
+
 define([], function() {
     function addTabNavSupport(element) {
         element.setAttribute("tabindex", 0);

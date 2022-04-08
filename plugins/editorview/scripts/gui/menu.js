@@ -1,3 +1,5 @@
+"use strict";
+
 define([], function() {
     let UP_LEFT = 1,
         UP_RIGHT = 2,
