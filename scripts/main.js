@@ -1,7 +1,7 @@
 "use strict";
 
 //NOTE: Plugins cannot be loaded outside of exec, as the system has not yet
-//  been initialized before than.
+//  been initialized before then.
 define([
     "context/appctx",
     "context/a11yctx",

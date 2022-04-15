@@ -14,8 +14,7 @@
     bottom: 50%;
     transform: translateY(-50%);
 
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-        url('https://goldbelly.imgix.net//uploads/showcase_media_asset/image/85530/ny-sour-pickles-1-gallon.ffc0f44a0be85000ee4399f282cd751c.jpg');
+    background: url('../resources/images/splash.png');
     background-size: 100%;
 
     box-shadow: 0px 0px 25px black;

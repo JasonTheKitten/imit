@@ -1,6 +1,5 @@
 "use strict";
 
-
 window.addEventListener("load", function() {
     let context = {
         path: "",
